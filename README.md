@@ -1,4 +1,16 @@
-# 📌 Roteiro para Instalar a Nice.SDK.Api no IIS do Windows
+# Sumário
+
+1. [Roteiro para Instalar a Nice.SDK.Api no IIS do Windows](#roteiro)
+2. [Chave de ativação](#chaveativacao)
+
+
+
+
+
+---
+
+
+# 📌 [Roteiro para Instalar a Nice.SDK.Api no IIS do Windows](#roteiro)
 
 ## 1️⃣ Instalar os Pré-requisitos
 
@@ -37,13 +49,20 @@ A API usa MySQL, portanto é necessário que seja instalado e configurado o banc
 2. Crie um banco de dados para a API (via MySQL Workbench ou prompt de comando):
 
 ```
-CREATE DATABASE nice-mg3000-db;
+CREATE DATABASE `nice-mg3000-db`;
+```
+
+3. Crie um banco de dados para a API (via MySQL Workbench ou prompt de comando):
+
+> Esta etapa é opcional, você pode utilizar o usuário `root` e a respectiva senha ao invés de criar um novo usuário.
+
+```
 CREATE USER 'nice_user'@'%' IDENTIFIED BY 'senha_segura';
-GRANT ALL PRIVILEGES ON nice-mg3000-db.* TO 'nice_user'@'%';
+GRANT ALL PRIVILEGES ON `nice-mg3000-db`.* TO 'nice_user'@'%';
 FLUSH PRIVILEGES;
 ```
 
-3. Se necessário, edite o arquivo my.ini para liberar conexões remotas.
+4. Se necessário, edite o arquivo my.ini para liberar conexões remotas.\
 
 
 ---
@@ -64,15 +83,15 @@ FLUSH PRIVILEGES;
 
 ## 4️⃣ Configurar a API no IIS
 
-### 3.1 Criar um Diretório para a API
+### 4.1 Criar um Diretório para a API
 
-Copie o conteúdo da pasta da API que foi descompactada no passo anterior para:
+Copie o conteúdo da pasta `publish` da API que foi descompactada no passo anterior para:
 
 ```
 C:\inetpub\NiceSDKApi
 ```
 
-### 3.2 Criar um Aplicativo no IIS
+### 4.2 Criar um Aplicativo no IIS
 
 1. Abra o Gerenciador do IIS (inetmgr).
 
@@ -89,16 +108,21 @@ C:\inetpub\NiceSDKApi
 
 ## 5️⃣ Configurar o Módulo do ASP.NET Core
 
-1. No IIS, selecione o site Nice.SDK.Api.
+1. No IIS, selecione o site `Nice.SDK.Api`.
 
-2. Vá em Configurações Avançadas e ajuste a Pasta do Aplicativo (C:\inetpub\NiceSDKApi).
+2. Vá em Configurações Avançadas e ajuste a Pasta do Aplicativo (`C:\inetpub\NiceSDKApi`).
 
 3. Em Módulos, verifique se AspNetCoreModuleV2 está ativado.
 
 ---
 
 ## 6️⃣ Configurar o Banco de Dados na API
+
 Edite o appsettings.json da API e configure a string de conexão do MySQL:
+
+1. `Database` deve conter o mesmo nome que foi criado na etapa 2.2;
+2. `User Id` deve conter o nome de usuário que foi criado na etapa 2.2 (ou o usuário root caso não tenha criado um usuário específico);
+3. `Password` deve conter a senha do usuário escolhido.
 
 ```
 "ConnectionStrings": {
@@ -110,7 +134,7 @@ Edite o appsettings.json da API e configure a string de conexão do MySQL:
 
 ## 7️⃣ Configurar Permissões
 
-1. Vá até C:\inetpub\NiceSDKApi.
+1. Vá até `C:\inetpub\NiceSDKApi`.
 
 2. Clique com o botão direito → Propriedades → Segurança.
 
@@ -154,7 +178,7 @@ iisreset
 
 ---
 
-## 🔟 Configurar o Firewall (Se Necessário)
+## 🔟 Configurar o Firewall (Se necessário)
 Se a API não estiver acessível externamente, libere a porta no Firewall do Windows:
 
 ```
@@ -170,7 +194,7 @@ Agora sua API Nice.SDK.Api está rodando no IIS com o MySQL configurado! 🚀
 
 ---
 
-# 📌 Chave de ativação
+# 🗝️ [Chave de ativação](#chaveativacao)
 
 ## Como utilizar a chave de ativação
 
