@@ -166,3 +166,20 @@ New-NetFirewallRule -DisplayName "API Nice SDK" -Direction Inbound -Protocol TCP
 
 ## 🔹 Conclusão
 Agora sua API Nice.SDK.Api está rodando no IIS com o MySQL configurado! 🚀
+
+
+---
+
+# 📌 Chave de ativação
+
+## Como utilizar a chave de ativação
+
+1. Para executar os serviços da API é necessário estar de posse da sua chave de ativação.
+2. Clique no botão `Authorize`.
+3. Preencha a caixa de texto `ApiKey` com o valor da sua chave de ativação.
+4. Clique novamente no botão `Authorize` e em seguida `Close`.
+
+![x-api-key](images/x-api-key.png "x-api-key")
+
+> Após inserir a chave de ativação, qualquer acionamento de serviços no Swagger irá enviar a chave no cabeçalho e a API fará a validação da mesma.
+> Caso a chave não seja preenchida os métodos não serão executados por falta de autorização.
