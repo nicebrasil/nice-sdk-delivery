@@ -184,11 +184,15 @@ Configure a string de conexão do MySQL:
 
 ## 7️⃣ Configurar Permissões
 
+> Necessita de privilégio de administrador.
+
 1. Vá até `C:\inetpub\NiceSDKApi`.
 
 2. Clique com o botão direito → Propriedades → Segurança.
 
 3. Adicione o usuário IIS_IUSRS e dê permissões Leitura e Execução.
+
+![modulos](images/seguranca.png "Módulos")
 
 <br>
 
@@ -226,7 +230,7 @@ Se o arquivo `web.config` não foi gerado, crie manualmente em `C:\inetpub\NiceS
 
 1. No Prompt de Comando, reinicie o IIS:
 
-> Necessita de privilégio de administrador, como alternativa pode reiniciar o computador.
+> Necessita de privilégio de administrador, como alternativa pode-se reiniciar o computador.
 
 ```
 iisreset
