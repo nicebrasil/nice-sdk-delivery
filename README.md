@@ -1,16 +1,21 @@
 # Sumário
 
-1. [Roteiro para Instalar a Nice.SDK.Api no IIS do Windows](#roteiro)
-2. [Chave de ativação](#chaveativacao)
+1. [Instalar a Nice.SDK.Api no IIS do Windows](#instalar)
+2. [Atualizar a Nice.SDK.Api em instalação já existente](#atualizar)
+3. [Chave de ativação](#chaveativacao)
 
 
-
-
+<br>
 
 ---
+<br>
+<br>
+<br>
 
 
-# 📌 [Roteiro para Instalar a Nice.SDK.Api no IIS do Windows](#roteiro)
+
+
+# 📌 [Instalar a Nice.SDK.Api no IIS do Windows](#instalar)
 
 ## 1️⃣ Instalar os Pré-requisitos
 
@@ -31,7 +36,13 @@ Baixe e instale o .NET 8 Hosting Bundle:
 
 ![hosting-bundle-donet8](images/hosting-bundle.png "Hosting Bundle .NET 8")
 
+<br>
+
 ---
+<br>
+<br>
+<br>
+
 
 ### 2️⃣ Instalar o MySQL no Windows
 A API usa MySQL, portanto é necessário que seja instalado e configurado o banco de dados no servidor.
@@ -64,24 +75,36 @@ GRANT ALL PRIVILEGES ON `nice-mg3000-db`.* TO 'nice_user'@'%';
 FLUSH PRIVILEGES;
 ```
 
-4. Se necessário, edite o arquivo my.ini para liberar conexões remotas.\
+4. Se necessário, edite o arquivo my.ini para liberar conexões remotas.
 
+
+<br>
 
 ---
+<br>
+<br>
+<br>
+
 
 ## 3️⃣ Selecionar a plataforma da API
 
 ### 3.1 Baixar a versão da API
 
 1. Clique em [Releases](https://github.com/nicebrasil/nice-sdk-delivery/releases).
-2. Escolha a versão desejada:
+2. Escolha a plataforma e versão desejada:
    - Any CPU
    - x86
    - x64
 3. Baixe o arquivo e descompacte.
 
 
+<br>
+
 ---
+<br>
+<br>
+<br>
+
 
 ## 4️⃣ Configurar a API no IIS
 
@@ -95,49 +118,69 @@ C:\inetpub\NiceSDKApi
 
 ### 4.2 Criar um Aplicativo no IIS
 
-1. Abra o Gerenciador do IIS (inetmgr).
+1. Abra o Gerenciador do IIS (`inetmgr`).
 
 2. Clique com o botão direito em Sites → Adicionar Site.
 
 3. Preencha os campos:
-   - Nome do Site: Nice.SDK.Api
-   - Caminho Físico: C:\inetpub\NiceSDKApi
-   - Endereço IP: Escolha "Todos os não atribuídos".
+   - Nome do Site: `Nice.SDK.Api`
+   - Caminho Físico: `C:\inetpub\NiceSDKApi`
+   - Endereço IP: _"Todos os não atribuídos"_.
    - Porta: Defina a porta (ex: 25002).
 
 ![adicionar-site](images/adicionar-site.png "Adicionar site")
 
 4. Clique em OK.
 
+<br>
+
 ---
+<br>
+<br>
+<br>
+
 
 ## 5️⃣ Configurar o Módulo do ASP.NET Core
 
 1. No IIS, selecione o site `Nice.SDK.Api`.
 
-2. Vá em Configurações Avançadas e ajuste a Pasta do Aplicativo (`C:\inetpub\NiceSDKApi`).
-
-3. Em Módulos, verifique se **AspNetCoreModuleV2** está ativado.
+2. Em Módulos, verifique se **AspNetCoreModuleV2** está ativado.
 
 ![modulos](images/iis-modulos.png "Módulos")
 
+<br>
+
 ---
+<br>
+<br>
+<br>
+
 
 ## 6️⃣ Configurar o Banco de Dados na API
 
-Edite o appsettings.json da API e configure a string de conexão do MySQL:
+Edite o appsettings.json da API (`C:\inetpub\NiceSDKApi\appsettings.json`).
+
+> Necessita de privilégio de administrador.
+
+Configure a string de conexão do MySQL:
 
 1. `Database` deve conter o mesmo nome que foi criado na etapa 2.2;
-2. `User Id` deve conter o nome de usuário que foi criado na etapa 2.2 (ou o usuário root caso não tenha criado um usuário específico);
+2. `User` deve conter o nome de usuário que foi criado na etapa 2.2 (ou o usuário _root_ caso não tenha criado um usuário específico);
 3. `Password` deve conter a senha do usuário escolhido.
 
 ```
 "ConnectionStrings": {
-  "DefaultConnection": "Server=localhost;Database=nice-mg3000-db;User Id=nice_user;Password=senha_segura;"
+  "DefaultConnection": "Server=localhost;Database=nice-mg3000-db;User=nice_user;Password=senha_segura;"
 }
 ```
 
+<br>
+
 ---
+<br>
+<br>
+<br>
+
 
 ## 7️⃣ Configurar Permissões
 
@@ -147,7 +190,13 @@ Edite o appsettings.json da API e configure a string de conexão do MySQL:
 
 3. Adicione o usuário IIS_IUSRS e dê permissões Leitura e Execução.
 
+<br>
+
 ---
+<br>
+<br>
+<br>
+
 
 ## 8️⃣ Criar o `web.config`
 Se o arquivo `web.config` não foi gerado, crie manualmente em `C:\inetpub\NiceSDKApi`:
@@ -155,24 +204,29 @@ Se o arquivo `web.config` não foi gerado, crie manualmente em `C:\inetpub\NiceS
 ```
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
-  <system.webServer>
-    <handlers>
-      <add name="aspNetCore" path="*" verb="*" modules="AspNetCoreModuleV2" resourceType="Unspecified"/>
-    </handlers>
-    <aspNetCore processPath="dotnet" arguments="Nice.MG3000.Api.dll" stdoutLogEnabled="true" stdoutLogFile="logs\stdout">
-      <environmentVariables>
-        <environmentVariable name="ASPNETCORE_ENVIRONMENT" value="Production" />
-      </environmentVariables>
-    </aspNetCore>
-  </system.webServer>
+  <location path="." inheritInChildApplications="false">
+    <system.webServer>
+      <handlers>
+        <add name="aspNetCore" path="*" verb="*" modules="AspNetCoreModuleV2" resourceType="Unspecified" />
+      </handlers>
+      <aspNetCore processPath="dotnet" arguments=".\Nice.MG3000.Api.dll" stdoutLogEnabled="false" stdoutLogFile=".\logs\stdout" hostingModel="inprocess" />
+    </system.webServer>
+  </location>
 </configuration>
 ```
 
+<br>
+
 ---
+<br>
+<br>
+<br>
 
 ## 9️⃣ Reiniciar o IIS e Testar a API
 
 1. No Prompt de Comando, reinicie o IIS:
+
+> Necessita de privilégio de administrador, como alternativa pode reiniciar o computador.
 
 ```
 iisreset
@@ -180,35 +234,162 @@ iisreset
 
 2. Teste a API acessando:
 
-    http://localhost:25002/swagger
+    http://localhost:25002/swagger/
 
+
+<br>
 
 ---
+<br>
+<br>
+<br>
 
 ## 🔟 Configurar o Firewall (Se necessário)
 Se a API não estiver acessível externamente, libere a porta no Firewall do Windows:
 
 ```
-New-NetFirewallRule -DisplayName "API Nice SDK" -Direction Inbound -Protocol TCP -LocalPort 5000 -Action Allow
+New-NetFirewallRule -DisplayName "API Nice SDK" -Direction Inbound -Protocol TCP -LocalPort 25002 -Action Allow
 ```
 
+<br>
+
 ---
+<br>
+<br>
+<br>
 
 
 ## 🔹 Conclusão
 Agora sua API Nice.SDK.Api está rodando no IIS com o MySQL configurado! 🚀
 
+<br>
 
 ---
+<br>
+<br>
+<br>
+<br>
+
+# 🔄 [Atualizar a Nice.SDK.Api em instalação já existente](#atualizar)
+
+## 1️⃣ Parar a execução da API
+
+1. Abra o Gerenciador do IIS (`inetmgr`).
+
+2. Selecione o site `Nice.SDK.Api`.
+
+3. Em `Gerenciar Site`, clique em `Parar`.
+
+![gerenciar-site](images/iis-gerenciar.png "Gerenciar Site")
+
+<br>
+
+---
+<br>
+<br>
+<br>
+
+
+## 2️⃣ Selecionar a plataforma da API
+
+### 1.1 Baixar a versão da API atualizada
+
+1. Clique em [Releases](https://github.com/nicebrasil/nice-sdk-delivery/releases).
+2. Escolha a plataforma e versão desejada:
+   - Any CPU
+   - x86
+   - x64
+3. Baixe o arquivo e descompacte.
+
+
+<br>
+
+---
+<br>
+<br>
+<br>
+
+
+## 3️⃣ Atualizar os arquivos da API
+
+### 3.1 Backup do appsettings
+
+Faça um backup do arquivo appsettings.json (`C:\inetpub\NiceSDKApi\appsettings.json`) para outra pasta a sua escolha.
+
+
+### 3.2 Copiar os arquivos atualizados para a pasta da API
+
+Copie o conteúdo da pasta `publish` da API que foi descompactada na etapa anterior, substituindo os arquivos no destino:
+
+```
+C:\inetpub\NiceSDKApi
+```
+
+### 3.3 Atualizar a string de conexão
+
+1. Edite o `appsettings.json` de backup.
+
+2. Copie o conteúdo da `DefaultConnection` (que deverá conter o usuário e a senha que foi escolhido durante o processo de instalação inicial).
+
+3. Edite o appsettings.json da pasta da API (`C:\inetpub\NiceSDKApi\appsettings.json`).
+
+4. Cole o conteúdo da memória substituindo o conteúdo da `DefaultConnection`.
+
+
+```
+"ConnectionStrings": {
+  "DefaultConnection": "Server=localhost;Database=nice-mg3000-db;User=nice_user;Password=senha_segura;"
+}
+```
+
+<br>
+
+---
+<br>
+<br>
+<br>
+<br>
+
+## 4️⃣ Iniciar a execução da API
+
+1. Abra o Gerenciador do IIS (`inetmgr`).
+
+2. Selecione o site `Nice.SDK.Api`.
+
+3. Em `Gerenciar Site`, clique em `Iniciar`.
+
+![gerenciar-site](images/iis-iniciar.png "Gerenciar Site")
+
+<br>
+
+---
+<br>
+<br>
+<br>
+
+## 5️⃣ Testar o acesso a API
+
+2. Teste a API acessando:
+
+    http://localhost:25002/swagger/
+
+
+<br>
+
+---
+<br>
+<br>
+<br>
+
 
 # 🗝️ [Chave de ativação](#chaveativacao)
 
 ## Como utilizar a chave de ativação
 
-1. Para executar os serviços da API é necessário estar de posse da sua chave de ativação.
-2. Clique no botão `Authorize`.
-3. Preencha a caixa de texto `ApiKey` com o valor da sua chave de ativação.
-4. Clique novamente no botão `Authorize` e em seguida `Close`.
+> Para executar os serviços da API é necessário estar de posse da sua chave de ativação.
+1. Clique no botão `Authorize`.
+2. Preencha a caixa de texto `ApiKey` com o valor da sua chave de ativação.
+3. Clique novamente no botão `Authorize` e em seguida `Close`.
 
 ![x-api-key](images/x-api-key.png "x-api-key")
 
