@@ -29,6 +29,8 @@ Baixe e instale o .NET 8 Hosting Bundle:
 
 🔗 [Download do Hosting Bundle .NET 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
 
+![hosting-bundle-donet8](images/hosting-bundle.png "Hosting Bundle .NET 8")
+
 ---
 
 ### 2️⃣ Instalar o MySQL no Windows
@@ -100,7 +102,10 @@ C:\inetpub\NiceSDKApi
 3. Preencha os campos:
    - Nome do Site: Nice.SDK.Api
    - Caminho Físico: C:\inetpub\NiceSDKApi
-   - Endereço IP/Porta: Escolha * e defina a porta (ex: 25002).
+   - Endereço IP: Escolha "Todos os não atribuídos".
+   - Porta: Defina a porta (ex: 25002).
+
+![adicionar-site](images/adicionar-site.png "Adicionar site")
 
 4. Clique em OK.
 
@@ -112,7 +117,9 @@ C:\inetpub\NiceSDKApi
 
 2. Vá em Configurações Avançadas e ajuste a Pasta do Aplicativo (`C:\inetpub\NiceSDKApi`).
 
-3. Em Módulos, verifique se AspNetCoreModuleV2 está ativado.
+3. Em Módulos, verifique se **AspNetCoreModuleV2** está ativado.
+
+![modulos](images/iis-modulos.png "Módulos")
 
 ---
 
