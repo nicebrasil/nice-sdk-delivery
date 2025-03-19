@@ -6,12 +6,12 @@
 
 
 <br>
+<br>
 
 ---
-<br>
-<br>
-<br>
 
+<br>
+<br>
 
 
 
@@ -37,9 +37,10 @@ Baixe e instale o .NET 8 Hosting Bundle:
 ![hosting-bundle-donet8](images/hosting-bundle.png "Hosting Bundle .NET 8")
 
 <br>
+<br>
 
 ---
-<br>
+
 <br>
 <br>
 
@@ -77,11 +78,11 @@ FLUSH PRIVILEGES;
 
 4. Se necessário, edite o arquivo my.ini para liberar conexões remotas.
 
-
+<br>
 <br>
 
 ---
-<br>
+
 <br>
 <br>
 
@@ -97,11 +98,11 @@ FLUSH PRIVILEGES;
    - x64
 3. Baixe o arquivo e descompacte.
 
-
+<br>
 <br>
 
 ---
-<br>
+
 <br>
 <br>
 
@@ -133,9 +134,10 @@ C:\inetpub\NiceSDKApi
 4. Clique em OK.
 
 <br>
+<br>
 
 ---
-<br>
+
 <br>
 <br>
 
@@ -148,10 +150,12 @@ C:\inetpub\NiceSDKApi
 
 ![modulos](images/iis-modulos.png "Módulos")
 
+
+<br>
 <br>
 
 ---
-<br>
+
 <br>
 <br>
 
@@ -175,9 +179,10 @@ Configure a string de conexão do MySQL:
 ```
 
 <br>
+<br>
 
 ---
-<br>
+
 <br>
 <br>
 
@@ -195,9 +200,10 @@ Configure a string de conexão do MySQL:
 ![modulos](images/seguranca.png "Módulos")
 
 <br>
+<br>
 
 ---
-<br>
+
 <br>
 <br>
 
@@ -220,9 +226,10 @@ Se o arquivo `web.config` não foi gerado, crie manualmente em `C:\inetpub\NiceS
 ```
 
 <br>
+<br>
 
 ---
-<br>
+
 <br>
 <br>
 
@@ -242,9 +249,10 @@ iisreset
 
 
 <br>
+<br>
 
 ---
-<br>
+
 <br>
 <br>
 
@@ -256,9 +264,10 @@ New-NetFirewallRule -DisplayName "API Nice SDK" -Direction Inbound -Protocol TCP
 ```
 
 <br>
+<br>
 
 ---
-<br>
+
 <br>
 <br>
 
@@ -267,10 +276,10 @@ New-NetFirewallRule -DisplayName "API Nice SDK" -Direction Inbound -Protocol TCP
 Agora sua API Nice.SDK.Api está rodando no IIS com o MySQL configurado! 🚀
 
 <br>
+<br>
 
 ---
-<br>
-<br>
+
 <br>
 <br>
 
@@ -287,9 +296,10 @@ Agora sua API Nice.SDK.Api está rodando no IIS com o MySQL configurado! 🚀
 ![gerenciar-site](images/iis-gerenciar.png "Gerenciar Site")
 
 <br>
+<br>
 
 ---
-<br>
+
 <br>
 <br>
 
@@ -307,9 +317,10 @@ Agora sua API Nice.SDK.Api está rodando no IIS com o MySQL configurado! 🚀
 
 
 <br>
+<br>
 
 ---
-<br>
+
 <br>
 <br>
 
@@ -347,10 +358,10 @@ C:\inetpub\NiceSDKApi
 ```
 
 <br>
+<br>
 
 ---
-<br>
-<br>
+
 <br>
 <br>
 
@@ -365,9 +376,10 @@ C:\inetpub\NiceSDKApi
 ![gerenciar-site](images/iis-iniciar.png "Gerenciar Site")
 
 <br>
+<br>
 
 ---
-<br>
+
 <br>
 <br>
 
@@ -379,9 +391,10 @@ C:\inetpub\NiceSDKApi
 
 
 <br>
+<br>
 
 ---
-<br>
+
 <br>
 <br>
 
