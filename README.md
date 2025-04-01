@@ -91,8 +91,7 @@ FLUSH PRIVILEGES;
 ### 3.1 Baixar a versão da API
 
 1. Clique em [Releases](https://github.com/nicebrasil/nice-sdk-delivery/releases).
-2. Escolha a plataforma e versão desejada:
-   - Any CPU
+2. Escolha a plataforma e versão desejada:   
    - x86
    - x64
 3. Baixe o arquivo e descompacte.
