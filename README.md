@@ -14,7 +14,7 @@
 
 
 
-
+<a name="instalar-a-nice-sdk-api-no-iis-do-windows"></a>
 # 📌 Instalar a Nice.SDK.Api no IIS do Windows
 
 ## 1️⃣ Instalar os Pré-requisitos
@@ -263,7 +263,7 @@ Agora sua API Nice.SDK.Api está rodando no IIS com o MySQL configurado! 🚀
 <br>
 
 
-<a name="atualizar"></a>
+<a name="atualizar-a-nice-sdk-api-em-instalacao-ja-existente"></a>
 # 🔄 Atualizar a Nice.SDK.Api em instalação já existente
 
 ## 1️⃣ Parar a execução da API
@@ -369,7 +369,7 @@ C:\inetpub\NiceSDKApi
 <br>
 
 
-<a name="chaveativacao"></a>
+<a name="chave-de-ativacao"></a>
 # 🗝️ Chave de ativação
 
 ## Como utilizar a chave de ativação
