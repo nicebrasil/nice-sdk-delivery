@@ -1,8 +1,8 @@
 # Sumário
 
-1. [Instalar a Nice.SDK.Api no IIS do Windows](#instalar)
-2. [Atualizar a Nice.SDK.Api em instalação já existente](#atualizar)
-3. [Chave de ativação](#chaveativacao)
+1. [Instalar a Nice.SDK.Api no IIS do Windows](#instalar-a-nice-sdk-api-no-iis-do-windows)
+2. [Atualizar a Nice.SDK.Api em instalação já existente](#atualizar-a-nice-sdk-api-em-instalacao-ja-existente)
+3. [Chave de ativação](#chave-de-ativacao)
 
 
 <br>
@@ -15,7 +15,7 @@
 
 
 
-# 📌 [Instalar a Nice.SDK.Api no IIS do Windows](#instalar)
+# 📌 Instalar a Nice.SDK.Api no IIS do Windows
 
 ## 1️⃣ Instalar os Pré-requisitos
 
@@ -41,8 +41,6 @@ Baixe e instale o .NET 8 Hosting Bundle:
 ---
 <br>
 <br>
-<br>
-
 
 ### 2️⃣ Instalar o MySQL no Windows
 A API usa MySQL, portanto é necessário que seja instalado e configurado o banco de dados no servidor.
@@ -77,14 +75,11 @@ FLUSH PRIVILEGES;
 
 4. Se necessário, edite o arquivo my.ini para liberar conexões remotas.
 
-
 <br>
 
 ---
 <br>
 <br>
-<br>
-
 
 ## 3️⃣ Selecionar a plataforma da API
 
@@ -92,19 +87,15 @@ FLUSH PRIVILEGES;
 
 1. Clique em [Releases](https://github.com/nicebrasil/nice-sdk-delivery/releases).
 2. Escolha a plataforma e versão desejada:
-   - Any CPU
    - x86
    - x64
 3. Baixe o arquivo e descompacte.
-
 
 <br>
 
 ---
 <br>
 <br>
-<br>
-
 
 ## 4️⃣ Configurar a API no IIS
 
@@ -132,13 +123,20 @@ C:\inetpub\NiceSDKApi
 
 4. Clique em OK.
 
+5. Somente se o pacote escolhido foi o `Nice.MG3000.Api_x86` (32-bit)
+   - Clique em `Pools de Aplicativos`
+   - Selecione `Nice.SDK.Api`
+   - Clique em `Configurações Avançadas`
+   - Na opção `Habilitar Aplicativos de 32 Bits` altere para `True`
+   - Clique `OK` para confirmar
+
+![adicionar-site](images/pool-de-aplicativos-config-avancada.png "Adicionar site")
+
 <br>
 
 ---
 <br>
 <br>
-<br>
-
 
 ## 5️⃣ Configurar o Módulo do ASP.NET Core
 
@@ -153,8 +151,6 @@ C:\inetpub\NiceSDKApi
 ---
 <br>
 <br>
-<br>
-
 
 ## 6️⃣ Configurar o Banco de Dados na API
 
@@ -179,8 +175,6 @@ Configure a string de conexão do MySQL:
 ---
 <br>
 <br>
-<br>
-
 
 ## 7️⃣ Configurar Permissões
 
@@ -199,8 +193,6 @@ Configure a string de conexão do MySQL:
 ---
 <br>
 <br>
-<br>
-
 
 ## 8️⃣ Criar o `web.config`
 Se o arquivo `web.config` não foi gerado, crie manualmente em `C:\inetpub\NiceSDKApi`:
@@ -224,7 +216,6 @@ Se o arquivo `web.config` não foi gerado, crie manualmente em `C:\inetpub\NiceS
 ---
 <br>
 <br>
-<br>
 
 ## 9️⃣ Reiniciar o IIS e Testar a API
 
@@ -246,7 +237,6 @@ iisreset
 ---
 <br>
 <br>
-<br>
 
 ## 🔟 Configurar o Firewall (Se necessário)
 Se a API não estiver acessível externamente, libere a porta no Firewall do Windows:
@@ -260,7 +250,6 @@ New-NetFirewallRule -DisplayName "API Nice SDK" -Direction Inbound -Protocol TCP
 ---
 <br>
 <br>
-<br>
 
 
 ## 🔹 Conclusão
@@ -272,9 +261,10 @@ Agora sua API Nice.SDK.Api está rodando no IIS com o MySQL configurado! 🚀
 <br>
 <br>
 <br>
-<br>
 
-# 🔄 [Atualizar a Nice.SDK.Api em instalação já existente](#atualizar)
+
+<a name="atualizar"></a>
+# 🔄 Atualizar a Nice.SDK.Api em instalação já existente
 
 ## 1️⃣ Parar a execução da API
 
@@ -291,8 +281,6 @@ Agora sua API Nice.SDK.Api está rodando no IIS com o MySQL configurado! 🚀
 ---
 <br>
 <br>
-<br>
-
 
 ## 2️⃣ Selecionar a plataforma da API
 
@@ -305,11 +293,9 @@ Agora sua API Nice.SDK.Api está rodando no IIS com o MySQL configurado! 🚀
    - x64
 3. Baixe o arquivo e descompacte.
 
-
 <br>
 
 ---
-<br>
 <br>
 <br>
 
@@ -351,8 +337,7 @@ C:\inetpub\NiceSDKApi
 ---
 <br>
 <br>
-<br>
-<br>
+
 
 ## 4️⃣ Iniciar a execução da API
 
@@ -369,7 +354,6 @@ C:\inetpub\NiceSDKApi
 ---
 <br>
 <br>
-<br>
 
 ## 5️⃣ Testar o acesso a API
 
@@ -383,10 +367,10 @@ C:\inetpub\NiceSDKApi
 ---
 <br>
 <br>
-<br>
 
 
-# 🗝️ [Chave de ativação](#chaveativacao)
+<a name="chaveativacao"></a>
+# 🗝️ Chave de ativação
 
 ## Como utilizar a chave de ativação
 
