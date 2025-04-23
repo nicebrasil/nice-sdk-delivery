@@ -63,7 +63,7 @@ A API usa MySQL, portanto é necessário que seja instalado e configurado o banc
 CREATE DATABASE `nice-mg3000-db`;
 ```
 
-3. Crie um banco de dados para a API (via MySQL Workbench ou prompt de comando):
+3. Crie um usuário no banco de dados para uso da API (via MySQL Workbench ou prompt de comando):
 
 > Esta etapa é opcional, você pode utilizar o usuário `root` e a respectiva senha ao invés de criar um novo usuário.
 
