@@ -87,8 +87,15 @@ FLUSH PRIVILEGES;
 
 1. Clique em [Releases](https://github.com/nicebrasil/nice-sdk-delivery/releases).
 2. Escolha a plataforma e versão desejada:
-   - x86
-   - x64
+   - `Nice.MG3000.Api_x86.zip` - plataforma x86
+   - `Nice.MG3000.Api_x64.zip` - plataforma x64
+3. Baixe o arquivo e descompacte.
+
+
+### 3.2 Baixar a FR Proxy API
+
+1. Clique em [Releases](https://github.com/nicebrasil/nice-sdk-delivery/releases).
+2. Selecione o arquivo `Nice.FRProxy.Api.zip`
 3. Baixe o arquivo e descompacte.
 
 <br>
@@ -99,9 +106,9 @@ FLUSH PRIVILEGES;
 
 ## 4️⃣ Configurar a API no IIS
 
-### 4.1 Criar um Diretório para a API
+### 4.1 Criar um Diretório para a Nice.MG3000.Api
 
-Copie o conteúdo da pasta `publish` da API que foi descompactada no passo anterior para:
+Copie o conteúdo da pasta `publish` da Nice.MG3000.Api que foi descompactada no passo anterior para:
 
 ```
 C:\inetpub\NiceSDKApi
@@ -134,6 +141,74 @@ C:\inetpub\NiceSDKApi
 
 <br>
 
+
+### 4.3 Criar um Diretório para a Nice.FRProxy.Api
+
+Copie o conteúdo da pasta `publish` da Nice.FRProxy.Api que foi descompactada no passo anterior para:
+
+```
+C:\inetpub\NiceFRProxyApi
+```
+
+### 4.4 Criar um Aplicativo no IIS
+
+1. Abra o Gerenciador do IIS (`inetmgr`).
+
+2. Clique com o botão direito em Sites → Adicionar Site.
+
+3. Preencha os campos:
+   - Nome do Site: `Nice.FRProxy.Api`
+   - Caminho Físico: `C:\inetpub\NiceFRProxyApi`
+   - Endereço IP: _"Todos os não atribuídos"_.
+   - Porta: Defina a porta (ex: 25003).
+
+![adicionar-site](images/adicionar-site-proxy.png "Adicionar site")
+
+4. Clique em OK.
+
+
+### 4.5 Atualizar portas nos appsettings.json
+
+> Necessita de privilégio de administrador.
+
+Caso as portas sugeridas acima não possam ser utilizadas, será necessário atualizar os arquivos de configuração das APIs da seguinte maneira:
+
+1. Nice.FRProxy.Api
+
+    - No arquivo `C:\inetpub\NiceFRProxyApi\appsettings.json`
+    - Atualize o valor de `EndpointPort` e `Url` (atualmente com 25003) para a porta que foi associada para a `Nice.FRProxy.Api` no IIS
+    - Atualize o valor de `TargetBaseUrl` (atualmente com 25002) para a porta que foi associada para a `Nice.SDK.Api` no IIS
+
+```
+{
+  "Kestrel": {
+    "EndpointPort": 25003,
+    "Endpoints": {
+      "Http": {
+        "Url": "http://0.0.0.0:25003"
+      }
+    }
+  },
+...
+  "Forwarding": {
+    "TargetBaseUrl": "http://127.0.0.1:25002/",
+...
+```
+
+
+2. Nice.SDK.Api
+
+    - No arquivo `C:\inetpub\NiceSDKApi\appsettings.json`
+    - Atualize o valor de `EndpointPort` (atualmente com 25003) para a porta que foi associada para a `Nice.FRProxy.Api` no IIS
+  
+```
+...
+  "FRProxyApi": {
+    "EndpointPort": 25003
+  },
+...
+```
+
 ---
 <br>
 <br>
@@ -145,6 +220,10 @@ C:\inetpub\NiceSDKApi
 2. Em Módulos, verifique se **AspNetCoreModuleV2** está ativado.
 
 ![modulos](images/iis-modulos.png "Módulos")
+
+3. Ainda no IIS, selecione o site `Nice.FRProxy.Api`.
+
+4. Em Módulos, verifique se **AspNetCoreModuleV2** está ativado.
 
 <br>
 
@@ -180,13 +259,19 @@ Configure a string de conexão do MySQL:
 
 > Necessita de privilégio de administrador.
 
-1. Vá até `C:\inetpub\NiceSDKApi`.
+1. No **Windows Explorer**, vá até `C:\inetpub\NiceSDKApi`.
 
 2. Clique com o botão direito → Propriedades → Segurança.
 
 3. Adicione o usuário IIS_IUSRS e dê permissões Leitura e Execução.
 
 ![modulos](images/seguranca.png "Módulos")
+
+4. Ainda no **Windows Explorer**, vá até `C:\inetpub\NiceFRProxyApi`.
+
+5. Clique com o botão direito → Propriedades → Segurança.
+
+6. Adicione o usuário IIS_IUSRS e dê permissões Leitura e Execução.
 
 <br>
 
@@ -227,10 +312,12 @@ Se o arquivo `web.config` não foi gerado, crie manualmente em `C:\inetpub\NiceS
 iisreset
 ```
 
-2. Teste a API acessando:
+2. Teste as APIs acessando:
 
-    http://localhost:25002/swagger/
+    - Nice.SDK.Api: http://localhost:25002/swagger/
 
+
+    - Nice.FRProxy.Api: http://localhost:25003/heartbeat/
 
 <br>
 
@@ -243,6 +330,10 @@ Se a API não estiver acessível externamente, libere a porta no Firewall do Win
 
 ```
 New-NetFirewallRule -DisplayName "API Nice SDK" -Direction Inbound -Protocol TCP -LocalPort 25002 -Action Allow
+```
+
+```
+New-NetFirewallRule -DisplayName "API Nice FRProxy" -Direction Inbound -Protocol TCP -LocalPort 25003 -Action Allow
 ```
 
 <br>
@@ -357,7 +448,7 @@ C:\inetpub\NiceSDKApi
 
 ## 5️⃣ Testar o acesso a API
 
-2. Teste a API acessando:
+1. Teste a API acessando:
 
     http://localhost:25002/swagger/
 
