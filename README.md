@@ -1,8 +1,23 @@
 # Sumário
 
-1. [Instalar a Nice.SDK.Api no IIS do Windows](#instalar-a-nice-sdk-api-no-iis-do-windows)
-2. [Atualizar a Nice.SDK.Api em instalação já existente](#atualizar-a-nice-sdk-api-em-instalacao-ja-existente)
-3. [Chave de ativação](#chave-de-ativacao)
+- [Documentação para desenvolvedores](#documentacao-api-sdk)
+- [Instalar a Nice.SDK.Api no IIS do Windows](#instalar-a-nice-sdk-api-no-iis-do-windows)
+- [Atualizar a Nice.SDK.Api em instalação já existente](#atualizar-a-nice-sdk-api-em-instalacao-ja-existente)
+- [Chave de ativação](#chave-de-ativacao)
+
+<br>
+
+---
+<br>
+<br>
+<br>
+
+
+
+<a name="documentacao-api-sdk"></a>
+# 📑 Documentação para desenvolvedores
+
+🔗 [Nice MG3000 SDK API](https://nice-br.gitbook.io/nice)
 
 
 <br>
@@ -32,7 +47,11 @@ Ou instale manualmente via Painel de Controle → Ativar ou desativar recursos d
 ### 1.2 Instalar o .NET 8 Hosting Bundle
 Baixe e instale o .NET 8 Hosting Bundle:
 
-🔗 [Download do Hosting Bundle .NET 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
+🔗 [Download .NET 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
+
+🔗 [Download Hosting Bundle .NET 8.0.22](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-aspnetcore-8.0.22-windows-hosting-bundle-installer) 
+
+(prefira o hyperlink anterior para selecionar a versão mais recente)
 
 ![hosting-bundle-donet8](images/hosting-bundle.png "Hosting Bundle .NET 8")
 
@@ -42,39 +61,41 @@ Baixe e instale o .NET 8 Hosting Bundle:
 <br>
 <br>
 
-### 2️⃣ Instalar o MySQL no Windows
-A API usa MySQL, portanto é necessário que seja instalado e configurado o banco de dados no servidor.
+### 2️⃣ Instalar o PostgreSQL no Windows
+A API usa PostgreSQL, portanto é necessário que seja instalado e configurado o banco de dados no servidor.
 
-### 2.1 Baixar e Instalar o MySQL
+### 2.1 Baixar e Instalar o PostgreSQL
 
-1. Acesse: 🔗[Download do MySQL](https://dev.mysql.com/downloads/installer/).
+1. Acesse: 🔗[Download do PostgreSQL](https://www.postgresql.org/download/).
 
-2. Baixe o MySQL Installer for Windows.
+2. Selecione *Installer for Windows* e faça o download da versão 17.7.
 
-3. Na instalação, escolha a opção MySQL Server e o MySQL Workbench.
+3. Na instalação, escolha a opção **PostgreSQL Server** (obrigatório) e o **pgAdmin 4** (opcional).
 
-### 2.2 Configurar o MySQL
+4. Durante o processo de instalação defina uma senha para o usuário root (anote para configurar na API).
 
-1. Defina uma senha para o usuário root (anote para configurar na API).
 
-2. Crie um banco de dados para a API (via MySQL Workbench ou prompt de comando):
+### 2.2 Configurar o PostgreSQL
+
+1. Abra o *SQL Shell (psql)*.
+
+![sql-shell](images/sql-shell.png "SQL Shell (psql)")
+
+2. Após iniciar a aplicação pressione ENTER para aceitar as opções default e insira a senha que foi criada na etapa de instalação.
+
+3. Crie um banco de dados para a API digitando o comando:
 
 ```
-CREATE DATABASE `nice-mg3000-db`;
+CREATE DATABASE "nice-mg3000-db";
 ```
 
-3. Crie um usuário no banco de dados para uso da API (via MySQL Workbench ou prompt de comando):
-
-> Esta etapa é opcional, você pode utilizar o usuário `root` e a respectiva senha ao invés de criar um novo usuário.
+4. Para encerrar digite:
 
 ```
-CREATE USER 'nice_user'@'%' IDENTIFIED BY 'senha_segura';
-GRANT ALL PRIVILEGES ON `nice-mg3000-db`.* TO 'nice_user'@'%';
-FLUSH PRIVILEGES;
+EXIT;
 ```
 
-4. Se necessário, edite o arquivo my.ini para liberar conexões remotas.
-
+![sql-shell-create-database](images/sql-shell-create.png "Create database")
 <br>
 
 ---
@@ -237,15 +258,17 @@ Edite o appsettings.json da API (`C:\inetpub\NiceSDKApi\appsettings.json`).
 
 > Necessita de privilégio de administrador.
 
-Configure a string de conexão do MySQL:
+Configure a string de conexão do PostgreSQL:
 
-1. `Database` deve conter o mesmo nome que foi criado na etapa 2.2;
-2. `User` deve conter o nome de usuário que foi criado na etapa 2.2 (ou o usuário _root_ caso não tenha criado um usuário específico);
-3. `Password` deve conter a senha do usuário escolhido.
+1. `Host` deve conter o IP do computador onde foi instalado o PostgreSQL, mantenha `127.0.0.1` para quando o SGBD foi instalado na mesma máquina onde está a API;
+2. `Port` deve conter o mesmo valor de porta que foi escolhido no momento da instalação o PostgreSQL, mantenha `5432` se foi utilizado o valor *default*;
+3. `Database` deve conter o mesmo nome que foi criado na etapa 2.2;
+4. `User` deve conter o nome de usuário padrão do PostgreSQL (postgres) ou um outro usuário que tenha sido criado para uso específico;
+5. `Password` deve conter a senha do usuário escolhido.
 
 ```
 "ConnectionStrings": {
-  "DefaultConnection": "Server=localhost;Database=nice-mg3000-db;User=nice_user;Password=senha_segura;"
+  "DefaultConnection": "Host=127.0.0.1;Port=5432;Database=nice-mg3000-db;Username=postgres;Password=senha_segura;"
 }
 ```
 
@@ -344,7 +367,7 @@ New-NetFirewallRule -DisplayName "API Nice FRProxy" -Direction Inbound -Protocol
 
 
 ## 🔹 Conclusão
-Agora sua API Nice.SDK.Api está rodando no IIS com o MySQL configurado! 🚀
+Agora sua API Nice.SDK.Api está rodando no IIS com o PostgreSQL configurado! 🚀
 
 <br>
 
@@ -419,7 +442,7 @@ C:\inetpub\NiceSDKApi
 
 ```
 "ConnectionStrings": {
-  "DefaultConnection": "Server=localhost;Database=nice-mg3000-db;User=nice_user;Password=senha_segura;"
+  "DefaultConnection": "Host=127.0.0.1;Port=5432;Database=nice-mg3000-db;Username=postgres;Password=senha_segura;"
 }
 ```
 
