@@ -17,8 +17,8 @@
 <a name="documentacao-api-sdk"></a>
 # 📑 Documentação para desenvolvedores
 
-🔗 [Nice MG3000 SDK API](https://nice-br.gitbook.io/nice)
 
+A Nice disponibiliza um guia com informações detalhadas sobre como configurar, integrar e utilizar o SDK e a API SDK, com exemplos práticos, orientações passo a passo e boas práticas. Acesse o [guia neste link](https://nice-br.gitbook.io/nice).
 
 <br>
 
